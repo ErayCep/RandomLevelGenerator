@@ -6,7 +6,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public Transform[] startingPositions;
     public GameObject[] rooms; // room LR = 0, room LRB = 1, room LRBT = 2, room LRT = 3
-
+    public GameObject[] startingRooms;
 
     private int direction;
     public float moveAmount = 10f;
@@ -19,7 +19,6 @@ public class LevelGenerator : MonoBehaviour
     public float minY;
 
     public bool stopGeneration;
-    public bool playerSpawned = false;
 
     public LayerMask room;
 
@@ -27,9 +26,9 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        int randomStartPositions = Random.Range(0, startingPositions.Length);
-        transform.position = startingPositions[randomStartPositions].position;
-        Instantiate(rooms[0], transform.position, Quaternion.identity);
+        transform.position = startingPositions[0].position;
+        Instantiate(startingRooms[0], transform.position, Quaternion.identity);
+
 
         direction = Random.Range(1, 6);
         stopGeneration = false;
@@ -112,7 +111,7 @@ public class LevelGenerator : MonoBehaviour
                     else
                     {
                         roomDetection.GetComponent<RoomType>().RoomDestruction();
-                        int randomBottonRoom = Random.Range(1,3);
+                        int randomBottonRoom = Random.Range(0,1);
 
                         Instantiate(rooms[randomBottonRoom], transform.position, Quaternion.identity);
                     }
